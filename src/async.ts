@@ -1,7 +1,7 @@
-import type { CodexData } from "./data/data";
-import type { CodexNode } from "./node/node";
-import { CodexMarketplace } from "./marketplace/marketplace";
-import type { CodexDebug } from "./debug/debug";
+import type { ArchivistData } from "./data/data";
+import type { ArchivistNode } from "./node/node";
+import { ArchivistMarketplace } from "./marketplace/marketplace";
+import type { ArchivistDebug } from "./debug/debug";
 
 export * from "./fetch-safe/fetch-safe";
 export * from "./marketplace/types";
@@ -10,17 +10,17 @@ export * from "./data/types";
 export * from "./values/values";
 export * from "./errors/errors";
 
-export { CodexDebug } from "./debug/debug";
-export { CodexData } from "./data/data";
-export { CodexNode } from "./node/node";
-export { CodexMarketplace } from "./marketplace/marketplace";
+export { ArchivistDebug } from "./debug/debug";
+export { ArchivistData } from "./data/data";
+export { ArchivistNode } from "./node/node";
+export { ArchivistMarketplace } from "./marketplace/marketplace";
 
-export class Codex {
+export class Archivist {
   readonly url: string;
-  private _marketplace: CodexMarketplace | null;
-  private _data: CodexData | null;
-  private _node: CodexNode | null;
-  private _debug: CodexDebug | null;
+  private _marketplace: ArchivistMarketplace | null;
+  private _data: ArchivistData | null;
+  private _node: ArchivistNode | null;
+  private _debug: ArchivistDebug | null;
 
   constructor(url: string) {
     this.url = url;
@@ -37,7 +37,7 @@ export class Codex {
 
     const module = await import("./marketplace/marketplace");
 
-    this._marketplace = new module.CodexMarketplace(this.url);
+    this._marketplace = new module.ArchivistMarketplace(this.url);
 
     return this._marketplace;
   }
@@ -49,7 +49,7 @@ export class Codex {
 
     const module = await import("./data/data");
 
-    this._data = new module.CodexData(this.url);
+    this._data = new module.ArchivistData(this.url);
 
     return this._data;
   }
@@ -61,7 +61,7 @@ export class Codex {
 
     const module = await import("./node/node");
 
-    this._node = new module.CodexNode(this.url);
+    this._node = new module.ArchivistNode(this.url);
 
     return this._node;
   }
@@ -73,7 +73,7 @@ export class Codex {
 
     const module = await import("./debug/debug");
 
-    this._debug = new module.CodexDebug(this.url);
+    this._debug = new module.ArchivistDebug(this.url);
 
     return this._debug;
   }

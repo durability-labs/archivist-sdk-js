@@ -1,9 +1,9 @@
 import { Api } from "../api/config";
 import { Fetch } from "../fetch-safe/fetch-safe";
 import type { SafeValue } from "../values/values";
-import type { CodexSpr } from "./types";
+import type { ArchivistSpr } from "./types";
 
-export class CodexNode {
+export class ArchivistNode {
   readonly url: string;
 
   constructor(url: string) {
@@ -32,7 +32,7 @@ export class CodexNode {
   /**
    * Get Node's SPR
    */
-  async spr(): Promise<SafeValue<CodexSpr>> {
+  async spr(): Promise<SafeValue<ArchivistSpr>> {
     const url = this.url + Api.config.prefix + "/spr";
 
     return Fetch.safeJson(url, {

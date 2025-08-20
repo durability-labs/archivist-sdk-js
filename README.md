@@ -1,6 +1,6 @@
-# Codex SDK
+# Archivist SDK
 
-The Codex SDK provides an API for interacting with the Codex decentralized storage network.
+The Archivist SDK provides an API for interacting with the Archivist decentralized storage network.
 
 The SDK has a small bundle size and support tree shaking.
 
@@ -13,49 +13,49 @@ The SDK is currently under early development and the API can change at any time.
 The easiest way is to use the sync API, but you will not benefit from tree shaking.
 
 ```js
-import { Codex } from "@codex-storage/sdk-js";
+import { Archivist } from "@durability-labs/archivist-sdk-js";
 ```
 
 or
 
 ```js
-const { Codex } = require("@codex-storage/sdk-js");
+const { Archivist } = require("@durability-labs/archivist-sdk-js");
 ```
 
-To create a Codex instance, provide the REST API url to interact with the Codex client:
+To create a Archivist instance, provide the REST API url to interact with the Archivist client:
 
 ```js
-const codex = new Codex("http://localhost:3000");
+const archivist = new Archivist("http://localhost:3000");
 ```
 
 Then you can access any module like this:
 
 ```js
-const marketplace = codex.marketplace;
+const marketplace = archivist.marketplace;
 ```
 
 ### Async api
 
 ```js
-import { Codex } from "@codex-storage/sdk-js/async";
+import { Archivist } from "@durability-labs/archivist-sdk-js/async";
 ```
 
 or
 
 ```js
-const { Codex } = require("@codex-storage/sdk-js/async");
+const { Archivist } = require("@durability-labs/archivist-sdk-js/async");
 ```
 
-To create a Codex instance, provide the REST API url to interact with the Codex client:
+To create a Archivist instance, provide the REST API url to interact with the Archivist client:
 
 ```js
-const codex = new Codex("http://localhost:3000");
+const archivist = new Archivist("http://localhost:3000");
 ```
 
 To use a module, you need to use the await syntax. If the module is not loaded yet, it will be imported first and then cached in memory.
 
 ```js
-const marketplace = await codex.marketplace;
+const marketplace = await archivist.marketplace;
 ```
 
 ### Error handling
@@ -64,11 +64,11 @@ The SDK provides a type called `SafeValue` for error handling instead of throwin
 If the value represents an error, `error` is true and `data` will contain the error.
 If the value is not an error, `error` is false and `data` will contain the requested data.
 
-The [CodexError](./src/errors/errors.ts#L16) contains a message and 3 optionals properties:
+The [ArchivistError](./src/errors/errors.ts#L16) contains a message and 3 optionals properties:
 
 - `code`: The (http) code error when it comes from a request
 - `errors`: A {ValidationError} array when it comes from an object validation process
-- `stack`: The error stack when the CodexError results from a error thrown
+- `stack`: The error stack when the ArchivistError results from a error thrown
 
 Example:
 
@@ -85,26 +85,24 @@ if (slots.error) {
 
 ### Compatibility
 
-| SDK version | Codex version | Codex app |
-| ----------- | ------------- | --------- |
-| latest      | master        | latest    |
-| 0.0.22      | Testnet 0.2.0 | 0.0.14    |
-| 0.0.16      | Testnet 0.1.9 | 0.0.13    |
+| SDK version | Archivist version | Archivist app |
+| ----------- | ----------------- | ------------- |
+| latest      | main              | latest        |
 
 ### Marketplace
 
 The following API assume that you have already a marketplace module loaded, example:
 
 ```js
-const codex = new Codex("http://localhost:3000");
-const marketplace = await codex.marketplace();
+const archivist = new Archivist("http://localhost:3000");
+const marketplace = await archivist.marketplace();
 ```
 
 #### activeSlots()
 
 Returns active slots.
 
-- returns Promise<[CodexSlot](./src/marketplace/types.ts#L85)[]>
+- returns Promise<[ArchivistSlot](./src/marketplace/types.ts#L85)[]>
 
 Example:
 
@@ -117,7 +115,7 @@ const slots = await marketplace.activeSlots();
 Returns active slot with id {slotId} for the host.
 
 - slotId (string, required)
-- returns Promise<[CodexSlot](./src/marketplace/types.ts#L85)[]>
+- returns Promise<[ArchivistSlot](./src/marketplace/types.ts#L85)[]>
 
 Example:
 
@@ -130,7 +128,7 @@ const slot = await marketplace.activeSlot(slotId);
 
 Returns storage that is for sale.
 
-- returns Promise<[CodexAvailability](./src/marketplace/types.ts#L99)>
+- returns Promise<[ArchivistAvailability](./src/marketplace/types.ts#L99)>
 
 Example:
 
@@ -142,8 +140,8 @@ const availabilities = await marketplace.availabilities();
 
 Offers storage for sale.
 
-- input ([CodexCreateAvailabilityInput](./src/marketplace/types.ts#L175), required)
-- returns Promise<[CodexAvailabilityCreateResponse](./src/marketplace/types.ts#L186)[]>
+- input ([ArchivistCreateAvailabilityInput](./src/marketplace/types.ts#L175), required)
+- returns Promise<[ArchivistAvailabilityCreateResponse](./src/marketplace/types.ts#L186)[]>
 
 Example:
 
@@ -160,7 +158,7 @@ const response = await marketplace.createAvailability({
 
 Updates availability.
 
-- input ([CodexUpdateAvailabilityInput](./src/marketplace/types.ts#L186), required)
+- input ([ArchivistUpdateAvailabilityInput](./src/marketplace/types.ts#L186), required)
 - returns Promise<"">
 
 Example:
@@ -180,7 +178,7 @@ const response = await marketplace.updateAvailability({
 Return list of reservations for ongoing Storage Requests that the node hosts.
 
 - availabilityId (string, required)
-- returns Promise<[CodexReservation](./src/marketplace/types.ts#L198)[]>
+- returns Promise<[ArchivistReservation](./src/marketplace/types.ts#L198)[]>
 
 Example:
 
@@ -192,7 +190,7 @@ const reservations = await marketplace.reservations("Ox...");
 
 Creates a new Request for storage
 
-- input ([CodexCreateStorageRequestInput](./src/marketplace/types.ts#L230), required)
+- input ([ArchivistCreateStorageRequestInput](./src/marketplace/types.ts#L230), required)
 - returns Promise<string>
 
 Example:
@@ -226,7 +224,7 @@ const ids = await marketplace.purchaseIds();
 Returns purchase details
 
 - purchaseId (string, required)
-- returns Promise<[CodexPurchase](./src/marketplace/types.ts#L214)[]>
+- returns Promise<[ArchivistPurchase](./src/marketplace/types.ts#L214)[]>
 
 Example:
 
@@ -240,15 +238,15 @@ const purchase = await marketplace.purchaseDetail(purchaseId);
 The following API assume that you have already a data module loaded, example:
 
 ```js
-const codex = new Codex("http://localhost:3000");
-const data = await codex.data;
+const archivist = new Archivist("http://localhost:3000");
+const data = await archivist.data;
 ```
 
 #### cids
 
 Returns the manifest stored locally in node.
 
-- returns Promise<[CodexDataResponse](./src/data/types.ts#L54)[]>
+- returns Promise<[ArchivistDataResponse](./src/data/types.ts#L54)[]>
 
 Example:
 
@@ -260,7 +258,7 @@ const cids = await data.cids();
 
 Returns a summary of the storage space allocation of the node
 
-- returns Promise<[CodexNodeSpace](./src/data/types.ts#L58)[]>
+- returns Promise<[ArchivistNodeSpace](./src/data/types.ts#L58)[]>
 
 Example:
 
@@ -297,7 +295,7 @@ await upload.result();
 Download only the dataset manifest from the network to the local node if it's not available locally.
 
 - cid (string, required)
-- returns [CodexManifest](./src/data/types.ts#L3)
+- returns [ArchivistManifest](./src/data/types.ts#L3)
 
 Example:
 
@@ -341,15 +339,15 @@ const result = await data.localDownload(cid);
 The following API assume that you have already a node module loaded, example:
 
 ```js
-const codex = new Codex("http://localhost:3000");
-const data = await codex.debug;
+const archivist = new Archivist("http://localhost:3000");
+const data = await archivist.debug;
 ```
 
 #### setLogLevel
 
 Set log level at run time.
 
-- level ([CodexLogLevel](./src/debug/types.ts#L3), required)
+- level ([ArchivistLogLevel](./src/debug/types.ts#L3), required)
 - returns Promise<"">
 
 Example:
@@ -362,7 +360,7 @@ await debug.setLogLevel("DEBUG");
 
 Gets node information
 
-- returns Promise<[CodexDebugInfo](./src/debug/types.ts#L15)>
+- returns Promise<[ArchivistDebugInfo](./src/debug/types.ts#L15)>
 
 Example:
 
@@ -375,15 +373,15 @@ const info = await debug.info();
 The following API assume that you have already a node module loaded, example:
 
 ```js
-const codex = new Codex("http://localhost:3000");
-const node = await codex.node;
+const archivist = new Archivist("http://localhost:3000");
+const node = await archivist.node;
 ```
 
 #### spr
 
 Get Node's SPR
 
-- returns Promise<[CodexSpr](./src/node/types.ts#L1)>
+- returns Promise<[ArchivistSpr](./src/node/types.ts#L1)>
 
 Example:
 

@@ -1,16 +1,16 @@
 import { Api } from "../api/config";
-import { CodexError } from "../errors/errors";
+import { ArchivistError } from "../errors/errors";
 import { Fetch } from "../fetch-safe/fetch-safe";
 import type { SafeValue } from "../values/values";
 import type {
-  CodexDataResponse,
-  CodexManifest,
-  CodexNodeSpace,
+  ArchivistDataResponse,
+  ArchivistManifest,
+  ArchivistNodeSpace,
   NetworkDownloadResponse,
   UploadResponse,
 } from "./types";
 
-export class CodexData {
+export class ArchivistData {
   readonly url: string;
 
   constructor(url: string) {
@@ -21,10 +21,10 @@ export class CodexData {
    * Lists manifest CIDs stored locally in node.
    * TODO: remove the faker data part when the api is ready
    */
-  cids(): Promise<SafeValue<CodexDataResponse>> {
+  cids(): Promise<SafeValue<ArchivistDataResponse>> {
     const url = this.url + Api.config.prefix + "/data";
 
-    return Fetch.safeJson<CodexDataResponse>(url, {
+    return Fetch.safeJson<ArchivistDataResponse>(url, {
       method: "GET",
     }).then((data) => {
       if (data.error) {
@@ -46,7 +46,7 @@ export class CodexData {
   space() {
     const url = this.url + Api.config.prefix + "/space";
 
-    return Fetch.safeJson<CodexNodeSpace>(url, {
+    return Fetch.safeJson<ArchivistNodeSpace>(url, {
       method: "GET",
     });
   }
@@ -89,7 +89,7 @@ export class CodexData {
         if (xhr.status != 200) {
           resolve({
             error: true,
-            data: new CodexError(xhr.responseText, {
+            data: new ArchivistError(xhr.responseText, {
               code: xhr.status,
             }),
           });
@@ -101,7 +101,7 @@ export class CodexData {
       xhr.onerror = function () {
         resolve({
           error: true,
-          data: new CodexError("Something went wrong during the file upload."),
+          data: new ArchivistError("Something went wrong during the file upload."),
         });
       };
     });
@@ -157,7 +157,7 @@ export class CodexData {
   async fetchManifest(cid: string) {
     const url = this.url + Api.config.prefix + `/data/${cid}/network/manifest`;
 
-    return Fetch.safeJson<CodexManifest>(url, {
+    return Fetch.safeJson<ArchivistManifest>(url, {
       method: "GET",
     });
   }

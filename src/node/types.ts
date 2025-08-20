@@ -1,3 +1,3 @@
-export type CodexSpr = {
+export type ArchivistSpr = {
   spr: string;
 };

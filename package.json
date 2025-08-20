@@ -1,10 +1,10 @@
 {
-  "name": "@codex-storage/sdk-js",
-  "version": "0.0.23",
-  "description": "Codex SDK to interact with the Codex decentralized storage network.",
+  "name": "@durability-labs/archivist-sdk-js",
+  "version": "0.0.1",
+  "description": "Archivist SDK to interact with the Archivist decentralized storage network.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/codex-storage/codex-js"
+    "url": "https://github.com/durability-labs/archivist-sdk-js"
   },
   "scripts": {
     "prepack": "npm run build",
@@ -17,7 +17,7 @@
     "format": "prettier --write ./src"
   },
   "keywords": [
-    "Codex",
+    "Archivist",
     "Javascript",
     "SDK",
     "storage"
@@ -50,7 +50,7 @@
   "files": [
     "dist"
   ],
-  "author": "Codex team",
+  "author": "Archivist team",
   "readme": "README.md",
   "license": "MIT",
   "engines": {

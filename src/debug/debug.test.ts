@@ -1,21 +1,21 @@
 import { afterEach, assert, describe, it, vi } from "vitest";
-import { CodexDebug } from "./debug";
-import type { CodexLogLevel } from "./types";
-import { CodexError } from "../errors/errors";
+import { ArchivistDebug } from "./debug";
+import type { ArchivistLogLevel } from "./types";
+import { ArchivistError } from "../errors/errors";
 
 describe("debug", () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  const debug = new CodexDebug("http://localhost:3000");
+  const debug = new ArchivistDebug("http://localhost:3000");
 
   it("returns an error when trying to setup the log level with a bad value", async () => {
-    const response = await debug.setLogLevel("TEST" as CodexLogLevel);
+    const response = await debug.setLogLevel("TEST" as ArchivistLogLevel);
 
     assert.deepStrictEqual(response, {
       error: true,
-      data: new CodexError("Cannot validate the input", {
+      data: new ArchivistError("Cannot validate the input", {
         errors: [
           {
             expected:

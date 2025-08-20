@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-export type CodexStorageRequest = {
+export type ArchivistStorageRequest = {
   id: string;
 
   /**
@@ -82,10 +82,10 @@ export type CodexStorageRequest = {
  * A storage slot is a portion of a storage contract that needs to be fulfilled
  * by a host. To initiate a contract, all the slots must be filled.
  */
-export type CodexSlot = {
+export type ArchivistSlot = {
   id: string;
 
-  request: CodexStorageRequest;
+  request: ArchivistStorageRequest;
 
   /**
    * The slot index as hexadecimal string
@@ -96,7 +96,7 @@ export type CodexSlot = {
 /**
  * Storage availability for sell.
  */
-export type CodexAvailability = {
+export type ArchivistAvailability = {
   id: string;
 
   /**
@@ -131,7 +131,7 @@ export type CodexAvailability = {
 /**
  * Storage availability received from the api.
  */
-export type CodexAvailabilityDto = {
+export type ArchivistAvailabilityDto = {
   id: string;
 
   /**
@@ -163,7 +163,7 @@ export type CodexAvailabilityDto = {
   totalRemainingCollateral: string;
 };
 
-export type CodexAvailabilityCreateResponse = CodexAvailability & {
+export type ArchivistAvailabilityCreateResponse = ArchivistAvailability & {
   id: string;
 
   /**
@@ -172,18 +172,18 @@ export type CodexAvailabilityCreateResponse = CodexAvailability & {
   freeSize: string;
 };
 
-export const CodexCreateAvailabilityInput = v.strictObject({
+export const ArchivistCreateAvailabilityInput = v.strictObject({
   totalSize: v.pipe(v.number(), v.minValue(1)),
   duration: v.pipe(v.number(), v.minValue(1)),
   minPricePerBytePerSecond: v.number(),
   totalCollateral: v.number(),
 });
 
-export type CodexCreateAvailabilityInput = v.InferOutput<
-  typeof CodexCreateAvailabilityInput
+export type ArchivistCreateAvailabilityInput = v.InferOutput<
+  typeof ArchivistCreateAvailabilityInput
 >;
 
-export const CodexUpdateAvailabilityInput = v.strictObject({
+export const ArchivistUpdateAvailabilityInput = v.strictObject({
   id: v.string(),
   totalSize: v.pipe(v.number(), v.minValue(1)),
   duration: v.pipe(v.number(), v.minValue(1)),
@@ -191,11 +191,11 @@ export const CodexUpdateAvailabilityInput = v.strictObject({
   totalCollateral: v.number(),
 });
 
-export type CodexUpdateAvailabilityInput = v.InferOutput<
-  typeof CodexUpdateAvailabilityInput
+export type ArchivistUpdateAvailabilityInput = v.InferOutput<
+  typeof ArchivistUpdateAvailabilityInput
 >;
 
-export type CodexReservation = {
+export type ArchivistReservation = {
   id: string;
   availabilityId: string;
   requestId: string;
@@ -211,7 +211,7 @@ export type CodexReservation = {
   slotIndex: string;
 };
 
-export type CodexPurchase = {
+export type ArchivistPurchase = {
   /**
    * Description of the request's state
    */
@@ -222,12 +222,12 @@ export type CodexPurchase = {
    */
   error: string;
 
-  request: CodexStorageRequest;
+  request: ArchivistStorageRequest;
 
   requestId: string;
 };
 
-export const CodexCreateStorageRequestInput = v.strictObject({
+export const ArchivistCreateStorageRequestInput = v.strictObject({
   cid: v.string(),
   duration: v.pipe(v.number(), v.minValue(1)),
   pricePerBytePerSecond: v.number(),
@@ -238,6 +238,6 @@ export const CodexCreateStorageRequestInput = v.strictObject({
   collateralPerByte: v.number(),
 });
 
-export type CodexCreateStorageRequestInput = v.InferOutput<
-  typeof CodexCreateStorageRequestInput
+export type ArchivistCreateStorageRequestInput = v.InferOutput<
+  typeof ArchivistCreateStorageRequestInput
 >;

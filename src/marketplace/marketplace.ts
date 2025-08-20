@@ -1,22 +1,22 @@
 import * as v from "valibot";
 import { Api } from "../api/config";
-import { CodexError, CodexValibotIssuesMap } from "../errors/errors";
+import { ArchivistError, ArchivistValibotIssuesMap } from "../errors/errors";
 import { Fetch } from "../fetch-safe/fetch-safe";
 import type { SafeValue } from "../values/values";
 import {
-  type CodexAvailability,
-  type CodexAvailabilityCreateResponse,
-  type CodexAvailabilityDto,
-  CodexCreateAvailabilityInput,
-  CodexCreateStorageRequestInput,
-  type CodexPurchase,
-  type CodexReservation,
-  type CodexSlot,
-  type CodexStorageRequest,
-  CodexUpdateAvailabilityInput,
+  type ArchivistAvailability,
+  type ArchivistAvailabilityCreateResponse,
+  type ArchivistAvailabilityDto,
+  ArchivistCreateAvailabilityInput,
+  ArchivistCreateStorageRequestInput,
+  type ArchivistPurchase,
+  type ArchivistReservation,
+  type ArchivistSlot,
+  type ArchivistStorageRequest,
+  ArchivistUpdateAvailabilityInput,
 } from "./types";
 
-export class CodexMarketplace {
+export class ArchivistMarketplace {
   readonly url: string;
 
   constructor(url: string) {
@@ -26,10 +26,10 @@ export class CodexMarketplace {
   /**
    * Returns active slots
    */
-  async activeSlots(): Promise<SafeValue<CodexSlot[]>> {
+  async activeSlots(): Promise<SafeValue<ArchivistSlot[]>> {
     const url = this.url + Api.config.prefix + "/sales/slots";
 
-    return Fetch.safeJson<CodexSlot[]>(url, {
+    return Fetch.safeJson<ArchivistSlot[]>(url, {
       method: "GET",
     });
   }
@@ -37,10 +37,10 @@ export class CodexMarketplace {
   /**
    * Returns active slot with id {slotId} for the host
    */
-  async activeSlot(slotId: string): Promise<SafeValue<CodexSlot>> {
+  async activeSlot(slotId: string): Promise<SafeValue<ArchivistSlot>> {
     const url = this.url + Api.config.prefix + "/sales/slots/" + slotId;
 
-    return Fetch.safeJson<CodexSlot>(url, {
+    return Fetch.safeJson<ArchivistSlot>(url, {
       method: "GET",
     });
   }
@@ -48,10 +48,10 @@ export class CodexMarketplace {
   /**
    * Returns storage that is for sale
    */
-  async availabilities(): Promise<SafeValue<CodexAvailability[]>> {
+  async availabilities(): Promise<SafeValue<ArchivistAvailability[]>> {
     const url = this.url + Api.config.prefix + "/sales/availability";
 
-    const res = await Fetch.safeJson<CodexAvailabilityDto[]>(url, {
+    const res = await Fetch.safeJson<ArchivistAvailabilityDto[]>(url, {
       method: "GET",
     });
 
@@ -77,15 +77,15 @@ export class CodexMarketplace {
    * Offers storage for sale
    */
   async createAvailability(
-    input: CodexCreateAvailabilityInput
-  ): Promise<SafeValue<CodexAvailabilityCreateResponse>> {
-    const result = v.safeParse(CodexCreateAvailabilityInput, input);
+    input: ArchivistCreateAvailabilityInput
+  ): Promise<SafeValue<ArchivistAvailabilityCreateResponse>> {
+    const result = v.safeParse(ArchivistCreateAvailabilityInput, input);
 
     if (!result.success) {
       return {
         error: true,
-        data: new CodexError("Cannot validate the input", {
-          errors: CodexValibotIssuesMap(result.issues),
+        data: new ArchivistError("Cannot validate the input", {
+          errors: ArchivistValibotIssuesMap(result.issues),
         }),
       };
     }
@@ -94,7 +94,7 @@ export class CodexMarketplace {
 
     const body = result.output;
 
-    return Fetch.safeJson<CodexAvailabilityCreateResponse>(url, {
+    return Fetch.safeJson<ArchivistAvailabilityCreateResponse>(url, {
       method: "POST",
       body: JSON.stringify({
         totalSize: body.totalSize.toString(),
@@ -110,15 +110,15 @@ export class CodexMarketplace {
    * Existing Requests linked to this Availability will continue as is.
    */
   async updateAvailability(
-    input: CodexUpdateAvailabilityInput
+    input: ArchivistUpdateAvailabilityInput
   ): Promise<SafeValue<"">> {
-    const result = v.safeParse(CodexUpdateAvailabilityInput, input);
+    const result = v.safeParse(ArchivistUpdateAvailabilityInput, input);
 
     if (!result.success) {
       return {
         error: true,
-        data: new CodexError("Cannot validate the input", {
-          errors: CodexValibotIssuesMap(result.issues),
+        data: new ArchivistError("Cannot validate the input", {
+          errors: ArchivistValibotIssuesMap(result.issues),
         }),
       };
     }
@@ -150,13 +150,13 @@ export class CodexMarketplace {
    */
   async reservations(
     availabilityId: string
-  ): Promise<SafeValue<CodexReservation[]>> {
+  ): Promise<SafeValue<ArchivistReservation[]>> {
     const url =
       this.url +
       Api.config.prefix +
       `/sales/availability/${availabilityId}/reservations`;
 
-    return Fetch.safeJson<CodexReservation[]>(url, {
+    return Fetch.safeJson<ArchivistReservation[]>(url, {
       method: "GET",
     });
   }
@@ -172,7 +172,7 @@ export class CodexMarketplace {
     });
   }
 
-  async purchases(): Promise<SafeValue<CodexPurchase[]>> {
+  async purchases(): Promise<SafeValue<ArchivistPurchase[]>> {
     const url = this.url + Api.config.prefix + `/storage/purchases`;
 
     const res = await Fetch.safeJson<string[]>(url, {
@@ -199,8 +199,8 @@ export class CodexMarketplace {
               state: "error",
               error: p.data.message,
               requestId: "",
-              request: {} as CodexStorageRequest,
-            } satisfies CodexPurchase)
+              request: {} as ArchivistStorageRequest,
+            } satisfies ArchivistPurchase)
           : p.data
       ),
     };
@@ -209,11 +209,11 @@ export class CodexMarketplace {
   /**
    * Returns purchase details
    */
-  async purchaseDetail(purchaseId: string): Promise<SafeValue<CodexPurchase>> {
+  async purchaseDetail(purchaseId: string): Promise<SafeValue<ArchivistPurchase>> {
     const url =
       this.url + Api.config.prefix + `/storage/purchases/` + purchaseId;
 
-    return Fetch.safeJson<CodexPurchase>(url, {
+    return Fetch.safeJson<ArchivistPurchase>(url, {
       method: "GET",
     });
   }
@@ -222,15 +222,15 @@ export class CodexMarketplace {
    * Creates a new request for storage.
    */
   async createStorageRequest(
-    input: CodexCreateStorageRequestInput
+    input: ArchivistCreateStorageRequestInput
   ): Promise<SafeValue<string>> {
-    const result = v.safeParse(CodexCreateStorageRequestInput, input);
+    const result = v.safeParse(ArchivistCreateStorageRequestInput, input);
 
     if (!result.success) {
       return {
         error: true,
-        data: new CodexError("Cannot validate the input", {
-          errors: CodexValibotIssuesMap(result.issues),
+        data: new ArchivistError("Cannot validate the input", {
+          errors: ArchivistValibotIssuesMap(result.issues),
         }),
       };
     }
