@@ -1,6 +1,6 @@
 import { afterEach, assert, describe, it, vi } from "vitest";
 import { Fetch } from "../fetch-safe/fetch-safe";
-import { CodexError } from "../async";
+import { ArchivistError } from "../async";
 
 describe.only("fetch", () => {
   afterEach(() => {
@@ -19,7 +19,7 @@ describe.only("fetch", () => {
       method: "GET",
     });
 
-    const error = new CodexError("error", {
+    const error = new ArchivistError("error", {
       code: 500,
     });
 

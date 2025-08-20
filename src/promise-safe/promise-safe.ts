@@ -1,4 +1,4 @@
-import { CodexError } from "../async";
+import { ArchivistError } from "../async";
 import type { SafeValue } from "../values/values";
 
 export const Promises = {
@@ -10,7 +10,7 @@ export const Promises = {
     } catch (e) {
       return {
         error: true,
-        data: new CodexError(e instanceof Error ? e.message : "" + e, {
+        data: new ArchivistError(e instanceof Error ? e.message : "" + e, {
           sourceStack: e instanceof Error ? e.stack || null : null,
         }),
       };

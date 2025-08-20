@@ -1,7 +1,7 @@
-import { CodexData } from "./data/data";
-import { CodexNode } from "./node/node";
-import { CodexMarketplace } from "./marketplace/marketplace";
-import { CodexDebug } from "./debug/debug";
+import { ArchivistData } from "./data/data";
+import { ArchivistNode } from "./node/node";
+import { ArchivistMarketplace } from "./marketplace/marketplace";
+import { ArchivistDebug } from "./debug/debug";
 
 export * from "./fetch-safe/fetch-safe";
 export * from "./marketplace/types";
@@ -10,17 +10,17 @@ export * from "./data/types";
 export * from "./values/values";
 export * from "./errors/errors";
 
-export { CodexDebug } from "./debug/debug";
-export { CodexData } from "./data/data";
-export { CodexNode } from "./node/node";
-export { CodexMarketplace } from "./marketplace/marketplace";
+export { ArchivistDebug } from "./debug/debug";
+export { ArchivistData } from "./data/data";
+export { ArchivistNode } from "./node/node";
+export { ArchivistMarketplace } from "./marketplace/marketplace";
 
-export class Codex {
+export class Archivist {
   readonly url: string;
-  private _marketplace: CodexMarketplace | null;
-  private _data: CodexData | null;
-  private _node: CodexNode | null;
-  private _debug: CodexDebug | null;
+  private _marketplace: ArchivistMarketplace | null;
+  private _data: ArchivistData | null;
+  private _node: ArchivistNode | null;
+  private _debug: ArchivistDebug | null;
 
   constructor(url: string) {
     this.url = url;
@@ -35,7 +35,7 @@ export class Codex {
       return this._marketplace;
     }
 
-    this._marketplace = new CodexMarketplace(this.url);
+    this._marketplace = new ArchivistMarketplace(this.url);
 
     return this._marketplace;
   }
@@ -45,7 +45,7 @@ export class Codex {
       return this._data;
     }
 
-    this._data = new CodexData(this.url);
+    this._data = new ArchivistData(this.url);
 
     return this._data;
   }
@@ -55,7 +55,7 @@ export class Codex {
       return this._node;
     }
 
-    this._node = new CodexNode(this.url);
+    this._node = new ArchivistNode(this.url);
 
     return this._node;
   }
@@ -65,7 +65,7 @@ export class Codex {
       return this._debug;
     }
 
-    this._debug = new CodexDebug(this.url);
+    this._debug = new ArchivistDebug(this.url);
 
     return this._debug;
   }

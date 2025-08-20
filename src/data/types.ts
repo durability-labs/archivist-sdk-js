@@ -1,6 +1,6 @@
 import type { SafeValue } from "../values/values";
 
-export type CodexManifest = {
+export type ArchivistManifest = {
   /**
    * "Root hash of the content"
    */
@@ -42,20 +42,20 @@ export type CodexManifest = {
   mimetype: string | null;
 };
 
-export type CodexDataContent = {
+export type ArchivistDataContent = {
   /**
    * Content Identifier as specified at https://github.com/multiformats/cid
    */
   cid: string;
 
-  manifest: CodexManifest;
+  manifest: ArchivistManifest;
 };
 
-export type CodexDataResponse = {
-  content: CodexDataContent[];
+export type ArchivistDataResponse = {
+  content: ArchivistDataContent[];
 };
 
-export type CodexNodeSpace = {
+export type ArchivistNodeSpace = {
   /**
    * Number of blocks stored by the node
    */
@@ -85,5 +85,5 @@ export type UploadResponse = {
 
 export type NetworkDownloadResponse = {
   cid: string
-  manifest: CodexManifest
+  manifest: ArchivistManifest
 }

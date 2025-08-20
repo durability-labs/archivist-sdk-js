@@ -8,19 +8,19 @@ type ValidationError = {
 };
 
 /**
- *  The CodexError contains a message and 3 optionals properties:
+ *  The ArchivistError contains a message and 3 optionals properties:
  * `code`: The (http) code error when it comes from a request
  * `errors`: A {ValidationError} array when it comes from an object validation process
- * `stack`: The error stack when the CodexError results from a error thrown
+ * `stack`: The error stack when the ArchivistError results from a error thrown
  */
-export class CodexError extends Error {
+export class ArchivistError extends Error {
   code: number | null;
   errors: ValidationError[] | null;
   sourceStack: string | null;
 
   constructor(
     message: string,
-    { code, errors, sourceStack }: CodexErrorProps = {}
+    { code, errors, sourceStack }: ArchivistErrorProps = {}
   ) {
     super(message);
 
@@ -30,13 +30,13 @@ export class CodexError extends Error {
   }
 }
 
-type CodexErrorProps = {
+type ArchivistErrorProps = {
   code?: number | null;
   errors?: ValidationError[] | null;
   sourceStack?: string | null;
 };
 
-export const CodexValibotIssuesMap = (issues: InferIssue<any>[]) =>
+export const ArchivistValibotIssuesMap = (issues: InferIssue<any>[]) =>
   issues.map((i) => ({
     expected: i.expected,
     received: i.received,

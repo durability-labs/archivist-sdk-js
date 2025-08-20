@@ -1,4 +1,4 @@
-import { CodexError } from "../errors/errors";
+import { ArchivistError } from "../errors/errors";
 import { Promises } from "../promise-safe/promise-safe";
 import { type SafeValue } from "../values/values";
 
@@ -9,7 +9,7 @@ export const Fetch = {
     if (res.error) {
       return {
         error: true,
-        data: new CodexError(res.data.message, {
+        data: new ArchivistError(res.data.message, {
           code: 502,
         }),
       };
@@ -24,7 +24,7 @@ export const Fetch = {
 
       return {
         error: true,
-        data: new CodexError(message.data, {
+        data: new ArchivistError(message.data, {
           code: res.data.status,
         }),
       };

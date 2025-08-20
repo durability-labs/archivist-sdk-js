@@ -1,12 +1,12 @@
 import { afterEach, assert, describe, it, vi } from "vitest";
 import { Fetch } from "../fetch-safe/fetch-safe";
-import { CodexMarketplace } from "./marketplace";
+import { ArchivistMarketplace } from "./marketplace";
 import {
   randomEthereumAddress,
   randomInt,
   randomString,
 } from "../tests/tests.util";
-import { CodexError } from "../errors/errors";
+import { ArchivistError } from "../errors/errors";
 
 function createStorageRequest() {
   return {
@@ -24,7 +24,7 @@ function createStorageRequest() {
 function missingNumberValidationError(field: string) {
   return {
     error: true as any,
-    data: new CodexError("Cannot validate the input", {
+    data: new ArchivistError("Cannot validate the input", {
       errors: [
         {
           path: field,
@@ -40,7 +40,7 @@ function missingNumberValidationError(field: string) {
 function extraValidationError(field: string, value: unknown) {
   return {
     error: true as any,
-    data: new CodexError("Cannot validate the input", {
+    data: new ArchivistError("Cannot validate the input", {
       errors: [
         {
           path: field,
@@ -56,7 +56,7 @@ function extraValidationError(field: string, value: unknown) {
 function missingStringValidationError(field: string) {
   return {
     error: true as any,
-    data: new CodexError("Cannot validate the input", {
+    data: new ArchivistError("Cannot validate the input", {
       errors: [
         {
           path: field,
@@ -72,7 +72,7 @@ function missingStringValidationError(field: string) {
 function mistypeNumberValidationError(field: string, value: string) {
   return {
     error: true as any,
-    data: new CodexError("Cannot validate the input", {
+    data: new ArchivistError("Cannot validate the input", {
       errors: [
         {
           path: field,
@@ -88,7 +88,7 @@ function mistypeNumberValidationError(field: string, value: string) {
 function minNumberValidationError(field: string, min: number) {
   return {
     error: true as any,
-    data: new CodexError("Cannot validate the input", {
+    data: new ArchivistError("Cannot validate the input", {
       errors: [
         {
           path: field,
@@ -112,7 +112,7 @@ function createAvailability() {
 }
 
 describe("marketplace", () => {
-  const marketplace = new CodexMarketplace("http://localhost:3000");
+  const marketplace = new ArchivistMarketplace("http://localhost:3000");
 
   afterEach(() => {
     vi.restoreAllMocks();

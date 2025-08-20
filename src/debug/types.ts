@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-export const CodexLogLevel = v.picklist([
+export const ArchivistLogLevel = v.picklist([
   "TRACE",
   "DEBUG",
   "INFO",
@@ -10,9 +10,9 @@ export const CodexLogLevel = v.picklist([
   "FATAL",
 ]);
 
-export type CodexLogLevel = v.InferOutput<typeof CodexLogLevel>;
+export type ArchivistLogLevel = v.InferOutput<typeof ArchivistLogLevel>;
 
-export type CodexDebugInfo = {
+export type ArchivistDebugInfo = {
   /**
    * Peer Identity reference as specified at https://docs.libp2p.io/concepts/fundamentals/peers/
    */
@@ -51,7 +51,7 @@ export type CodexDebugInfo = {
     }[]
   }
 
-  codex: {
+  archivist: {
     version: string
     revision: string
   }

@@ -1,6 +1,6 @@
 import { assert, describe, it } from "vitest";
 import { Promises } from "./promise-safe";
-import { CodexError } from "../async";
+import { ArchivistError } from "../async";
 
 describe("promise safe", () => {
   it("returns an error when the promise failed", async () => {
@@ -10,7 +10,7 @@ describe("promise safe", () => {
 
     assert.deepStrictEqual(result, {
       error: true,
-      data: new CodexError("error"),
+      data: new ArchivistError("error"),
     });
   });
 

@@ -1,4 +1,4 @@
-import { type CodexError } from "../errors/errors";
+import { type ArchivistError } from "../errors/errors";
 
 /**
  * SafeValue is a type used for error handling instead of throwing errors.
@@ -8,4 +8,4 @@ import { type CodexError } from "../errors/errors";
  */
 export type SafeValue<T> =
   | { error: false; data: T }
-  | { error: true; data: CodexError };
+  | { error: true; data: ArchivistError };
