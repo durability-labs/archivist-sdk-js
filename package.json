@@ -1,6 +1,6 @@
 {
   "name": "@durability-labs/archivist-sdk-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Archivist SDK to interact with the Archivist decentralized storage network.",
   "repository": {
     "type": "git",
